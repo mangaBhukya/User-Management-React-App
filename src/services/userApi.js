@@ -12,3 +12,16 @@ export const loginUser = async(email, password)=>{
     }
 
 };
+
+
+export const getUsers = async()=>{
+    try {
+        const response = await axios.get('https://reqres.in/api/users?page=1');
+        return response.data;
+        
+    } catch (error) {
+        throw error.response?.data?.error || 'Error Fetching Users'
+        
+    }
+
+};
