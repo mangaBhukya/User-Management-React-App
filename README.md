@@ -79,6 +79,7 @@ A React-based User Management application using **Material-UI** and **Reqres API
 ## User Delete Confirmation
 - Clicking the delete icon prompts a confirmation message.
 - On confirmation, a DELETE API request removes the user
+- UI update by filtering out the deleted user from the setFilteredUsers state
 
 ## API Integration
 - Login: Sends a POST request to /api/login with email and password.
