@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { loginUser } from "../services/userApi";
 import { TextField, Button, Container, Typography, Paper } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");//eve.holt@reqres.in
   const [password, setPassword] = useState("");//cityslicka
   const [error, setError] = useState("");
   const [onSuccess, setOnSuccess] = useState("");
+  const navigate = useNavigate();
 
   const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -25,6 +27,7 @@ const LoginForm = () => {
       const data = await loginUser(email, password);
       localStorage.setItem("token", data.token);
       setOnSuccess("Login successful!");
+      navigate("/users");
     } catch (error) {
       setError(error.error || "Invalid email or password. Please try again.");
     }
