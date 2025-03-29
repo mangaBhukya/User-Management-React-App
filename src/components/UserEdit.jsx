@@ -1,38 +1,45 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Modal, Box, Typography, TextField, Button } from "@mui/material";
 import { updateUser } from "../services/userApi";
 
-export const UserEdit = ({ open, onClose, user }) => {
+export const UserEdit = ({ open, onClose, user, onUserUpdate }) => {
   const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
-    email: "",
+    first_name: user.first_name || "",
+    last_name: user.last_name || "",
+    email: user.email || "",
   });
+  const [errors, setErrors] = useState({});
 
-  useEffect(() => {
-    if (user) {
-      setFormData({
-        first_name: user.first_name,
-        last_name: user.last_name,
-        email: user.email,
-      });
+  const validate = () => {
+    const errors = {};
+    if (!formData.first_name) errors.first_name = "First Name is required";
+    if (!formData.last_name) errors.last_name = "Last Name is required";
+    if (!formData.email) {
+      errors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = "Email is not valid";
     }
-  }, [user]);
-
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
   const handleSave = async (e) => {
-    console.log("formData", formData);
     try {
-      const updatedData = await updateUser(user.id, formData);
-      console.log("updatedData", updatedData);
+      if (validate()) {
+      await updateUser(user.id, formData);
+      onUserUpdate({
+        ...formData,
+        id: user.id,
+      });
+      
       alert('User Updated successfully!');
       onClose();
+    }
     } catch (error) {
       alert('Failed to update user');
     } 
   };
 
   const handleChange = (e) => {
-    console.log("e.target.value", e.target.value);
     setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -45,6 +52,7 @@ export const UserEdit = ({ open, onClose, user }) => {
       last_name: user.last_name,
       email: user.email,
     });
+    setErrors({})
     onClose();
   };
 
@@ -78,6 +86,8 @@ export const UserEdit = ({ open, onClose, user }) => {
           onChange={handleChange}
           fullWidth
           margin="normal"
+          error={Boolean(errors.first_name)}
+          helperText={errors.first_name}
         />
         <TextField
           label="Last Name"
@@ -86,6 +96,8 @@ export const UserEdit = ({ open, onClose, user }) => {
           onChange={handleChange}
           fullWidth
           margin="normal"
+          error={Boolean(errors.last_name)}
+          helperText={errors.last_name}
         />
         <TextField
           label="Email"
@@ -94,6 +106,8 @@ export const UserEdit = ({ open, onClose, user }) => {
           onChange={handleChange}
           fullWidth
           margin="normal"
+          error={Boolean(errors.email)}
+          helperText={errors.email}
         />
         <Box mt={3} display="flex" justifyContent="space-between">
           <Button onClick={handleCancel} variant="outlined" color="secondary">

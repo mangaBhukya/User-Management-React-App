@@ -23,12 +23,10 @@ const UserList = () => {
   const loadUsers = async (page, pageSize) => {
     try {
       const usersData = await getUsers(page + 1, pageSize);
-      console.log(usersData);
       setUsers(usersData.data);
       setFilteredUsers(usersData.data);
       setTotalPages(usersData.total_pages);
     } catch (error) {
-      console.log("error", error);
       throw error;
     }
   };
@@ -49,8 +47,7 @@ const UserList = () => {
 
     if (!confirmDelete) return;
     try {
-      const data = await deleteUser(userId);
-      console.log("deleteData", data);
+      await deleteUser(userId);
       setFilteredUsers(() => users.filter((user) => user.id !== userId));
       alert("User deleted successfully!");
     } catch (error) {
@@ -68,7 +65,6 @@ const UserList = () => {
     );
 
     setFilteredUsers(filtered);
-    console.log(filtered, "filtered");
   };
 
   const handleFilterChange = (event) => setFilterField(event.target.value);
@@ -82,12 +78,20 @@ const UserList = () => {
   };
 
   const applyFilter = () => {
-    console.log("filterValue", filterValue);
     if (!filterField || !filterValue) return setFilteredUsers(users);
     const filtered = users.filter((user) =>
       user[filterField]?.toLowerCase().includes(filterValue.toLowerCase())
     );
     setFilteredUsers(filtered);
+  };
+
+  const handleUserUpdate = async(updatedUser) => {
+    setFilteredUsers((prevUsers) =>
+      prevUsers.map((user) =>
+        user.id === updatedUser.id
+          ? { ...user, ...updatedUser }
+          : user
+      ))
   };
 
   const columns = [
@@ -154,6 +158,7 @@ const UserList = () => {
   const goBack = () => {
     navigate("/");
   };
+
   return (
     <div className="container">
       <Button
@@ -215,7 +220,12 @@ const UserList = () => {
         />
       </div>
       {selectedUser && (
-        <UserEdit open={open} onClose={handleClose} user={selectedUser} />
+        <UserEdit
+          open={open}
+          onClose={handleClose}
+          user={selectedUser}
+          onUserUpdate={handleUserUpdate}
+        />
       )}
     </div>
   );

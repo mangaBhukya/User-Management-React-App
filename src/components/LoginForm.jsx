@@ -19,7 +19,6 @@ const LoginForm = () => {
     e.preventDefault();
     setError("");
     try {
-      console.log(email, password);
       if (!isValidEmail) {
         setError("Please enter a valid email address");
         return;
