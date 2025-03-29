@@ -1,70 +1,87 @@
-# Getting Started with Create React App
+# **User Management App**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React-based User Management application using **Material-UI** and **Reqres API**. The app includes authentication, user listing with pagination, search, filtering, user editing and user deletion
 
-## Available Scripts
+## Technologies Used
+- React.js
+- Material-UI for UI components and styling
+- Material-UI DataGrid for displaying user data in table formate
+- Material-UI Icons for edit and delete actions
+- Axios for handling API requests
+- React Router for navigation
+- Reqres API for mock user data
 
-In the project directory, you can run:
 
-### `npm start`
+## Features
+- User Authentication: Login with email and password.
+- Token Persistence: Stores authentication token in local storage.
+- User List with Pagination: Displays users in a paginated table using Material-UI DataGrid.
+- Search & Filtering: Allows users to search by First Name, Last Name and Email.
+- Edit & Delete Users:
+  - Edit: Users can modify details through a modal with API integration.
+  - Delete: Users can be removed with a confirmation alert and API call.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Error Handling: Handles API errors and invalid inputs.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Installation & Setup
+- Clone the repository.
+- Install dependencies using npm.
+   npm install
+- Run the development server
+   npm start
+- Open the app
+  The app runs at: http://localhost:3000
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+##  Project Structure
+### The app consists of multiple components including:
+- LoginForm: Handles user login with validation.
+- UserList: Displays paginated user data.
+- UserEditModal: Allows users to edit user details.
+- UserList.css: Provides custom styling for the user table search, and filter.
+- API service functions are managed in a dedicated service file.
+- Routing is configured in the main application file.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Login Form Implementation
+- The LoginForm component is implemented using Material-UI.
+- It includes input fields for Email and Password.
+- On successful login, users are redirected to the User List page.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  ### Form Validation
+   - Email validation is applied using a regular expression to ensure a proper format.
+   - Error messages are displayed for invalid inputs.
+   - The Login button is disabled if:
+   - The email or password fields are empty.
+   - The input fields have validation errors.
 
-### `npm run eject`
+  ### API Integration
+   - On form submission, a POST request is sent to the Reqres API for authentication.
+   - If the login is successful, the user is navigated to the User List page.
+   - The authentication token is stored in local storage.
+   - API errors are handled gracefully with error messages displayed to the user.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## User List Table
+- Users are displayed in a Material-UI DataGrid.
+ ### Features include:
+  - Pagination with different page sizes
+  - Search functionality
+  - Editable user details
+  - Avatar display
+  - Edit and Delete actions using Material-UI Icons
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## User Edit Modal
+- Clicking the edit icon opens a modal with user details.
+- Users can update their First Name, Last Name, and Email.
+- A PUT API request is sent to update the user information.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## User Delete Confirmation
+- Clicking the delete icon prompts a confirmation message.
+- On confirmation, a DELETE API request removes the user
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## API Integration
+- Login: Sends a POST request to /api/login with email and password.
+- Fetch Users: Retrieves paginated users from /api/users?page={page}.
+- Edit User: Updates user details using /api/users/:id.
+- Delete User: Deletes a user using /api/users/:id
