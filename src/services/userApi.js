@@ -25,3 +25,14 @@ export const getUsers = async(page =1, pageSize=6)=>{
     }
 
 };
+
+export const updateUser = async(id, formData)=>{
+    try {
+        const response = await axios.put(`https://reqres.in/api/users/${id}`, formData);
+        return response.data; 
+    } catch (error) {
+        throw error.response?.data?.error || 'Error in Updating User'
+        
+    }
+
+};
