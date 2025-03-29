@@ -49,6 +49,9 @@ const UserList = () => {
   };
 
   const handleUserDelete = async (userId) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this user?");
+  
+    if (!confirmDelete) return;
     try {
       const data = await deleteUser(userId);
       console.log("deleteData", data);
