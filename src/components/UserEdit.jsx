@@ -28,8 +28,7 @@ export const UserEdit = ({ open, onClose, user }) => {
       onClose();
     } catch (error) {
       alert('Failed to update user');
-    }
-    
+    } 
   };
 
   const handleChange = (e) => {
@@ -38,6 +37,15 @@ export const UserEdit = ({ open, onClose, user }) => {
       ...prev,
       [e.target.name]: e.target.value,
     }));
+  };
+
+  const handleCancel = () => {
+    setFormData({
+      first_name: user.first_name,
+      last_name: user.last_name,
+      email: user.email,
+    });
+    onClose();
   };
 
   return (
@@ -88,7 +96,7 @@ export const UserEdit = ({ open, onClose, user }) => {
           margin="normal"
         />
         <Box mt={3} display="flex" justifyContent="space-between">
-          <Button onClick={onClose} variant="outlined" color="secondary">
+          <Button onClick={handleCancel} variant="outlined" color="secondary">
             Cancel
           </Button>
           <Button onClick={handleSave} variant="contained" color="primary">
