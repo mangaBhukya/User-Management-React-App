@@ -75,6 +75,7 @@ A React-based User Management application using **Material-UI** and **Reqres API
 - Clicking the edit icon opens a modal with user details.
 - Users can update their First Name, Last Name, and Email.
 - A PUT API request is sent to update the user information.
+- Modal includes validation checks for first_name, last_name, and email fields
 
 ## User Delete Confirmation
 - Clicking the delete icon prompts a confirmation message.
