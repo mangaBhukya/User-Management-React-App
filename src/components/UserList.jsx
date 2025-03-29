@@ -3,15 +3,9 @@ import { DataGrid } from "@mui/x-data-grid";
 import { getUsers, deleteUser } from "../services/userApi";
 import { Edit, Delete } from "@mui/icons-material";
 import { UserEdit } from "./UserEdit";
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from "react-router-dom";
 
-import {
-  Typography,
-  TextField,
-  Button,
-  MenuItem,
-  Select,
-} from "@mui/material";
+import { Typography, TextField, Button, MenuItem, Select } from "@mui/material";
 import "./UserList.css";
 
 const UserList = () => {
@@ -24,7 +18,7 @@ const UserList = () => {
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [filterField, setFilterField] = useState("");
   const [filterValue, setFilterValue] = useState("");
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const loadUsers = async (page, pageSize) => {
     try {
@@ -49,12 +43,15 @@ const UserList = () => {
   };
 
   const handleUserDelete = async (userId) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this user?");
-  
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this user?"
+    );
+
     if (!confirmDelete) return;
     try {
       const data = await deleteUser(userId);
       console.log("deleteData", data);
+      setFilteredUsers(() => users.filter((user) => user.id !== userId));
       alert("User deleted successfully!");
     } catch (error) {
       alert("Failed to delete user");
@@ -155,11 +152,16 @@ const UserList = () => {
   ];
 
   const goBack = () => {
-      navigate('/');
+    navigate("/");
   };
   return (
     <div className="container">
-      <Button variant="outlined" color="secondary" onClick={goBack} sx={{ mb: 2 }}>
+      <Button
+        variant="outlined"
+        color="secondary"
+        onClick={goBack}
+        sx={{ mb: 2 }}
+      >
         Back
       </Button>
       <Typography variant="h4" sx={{ mb: 2 }}>
