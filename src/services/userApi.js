@@ -36,3 +36,15 @@ export const updateUser = async(id, formData)=>{
     }
 
 };
+
+
+export const deleteUser = async(id)=>{
+    try {
+        const response = await axios.put(`https://reqres.in/api/users/${id}`);
+        return response.data; 
+    } catch (error) {
+        throw error.response?.data?.error || 'Error in Updating User'
+        
+    }
+
+};
