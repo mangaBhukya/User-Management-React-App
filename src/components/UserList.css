@@ -1,0 +1,105 @@
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+}
+
+h4 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    margin-bottom: 16px;
+}
+
+.search-input input {
+    padding: 12px;
+}
+
+.table-container {
+    height: 400px;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.MuiDataGrid-columnHeaderTitle {
+    font-weight: bold;
+    font-size: 16px;
+    color: #007bff;
+}
+
+.actions-cell {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.icon {
+    cursor: pointer;
+    font-size: 20px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.edit-icon {
+    color: #007bff;
+}
+
+.edit-icon:hover {
+    transform: scale(1.2);
+}
+
+.delete-icon {
+    color: #dc3545;
+}
+
+.delete-icon:hover {
+    transform: scale(1.2);
+}
+
+.filter-section {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    align-items: center;
+}
+
+@media (max-width: 600px) {
+    .filter-section {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+.filter-section select {
+    flex: 1;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.filter-section input:disabled,
+.filter-section button:disabled {
+    background-color: #e0e0e0;
+    color: #a0a0a0;
+    cursor: not-allowed;
+    border: 1px solid #ccc;
+}
+
+.filter-section button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.filter-section button:hover {
+    background-color: #0056b3;
+}
