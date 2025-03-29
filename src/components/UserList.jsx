@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { getUsers } from "../services/userApi";
-import { Edit } from "@mui/icons-material";
+import { getUsers, deleteUser } from "../services/userApi";
+import { Edit, Delete } from "@mui/icons-material";
 import { UserEdit } from "./UserEdit";
+
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -27,11 +28,24 @@ const UserList = () => {
     loadUsers(page, pageSize);
   }, [page, pageSize]);
 
+
   const handleClose = () => setOpen(false);
   const handleUserEdit = (user) => {
     setSelectedUser(user);
     setOpen(true);
-  };
+  }
+
+  const handleUserDelete = async(userId) => {
+    try {
+      const data = await deleteUser(userId);
+    console.log('deleteData', data);
+    alert('User deleted successfully!');
+      
+    } catch (error) {
+      alert('Failed to delete user');
+    }
+    
+  }
 
   const columns = [
     {
@@ -62,14 +76,14 @@ const UserList = () => {
       headerName: "First Name",
       headerClassName: "bold-header",
       width: 90,
-      sortingOrder: ["desc", "asc"],
+      sortingOrder: ['desc', 'asc']
     },
     {
       field: "last_name",
       headerName: "Last Name",
       headerClassName: "bold-header",
       width: 90,
-      sortingOrder: ["desc", "asc"],
+      sortingOrder: ['desc', 'asc']
     },
     {
       field: "actions",
@@ -77,14 +91,17 @@ const UserList = () => {
       sortable: false,
       renderCell: (params) => {
         return (
-          <div>
-            <Edit
-              onClick={(e) => {
-                handleUserEdit(params.row);
-              }}
-            />
-          </div>
-        );
+        <div>
+         <Delete onClick={(e) => {
+          handleUserDelete(params.row.id)
+        }}
+        />
+        <Edit onClick={(e) => {
+          handleUserEdit(params.row)
+        }}
+        />
+        </div>
+        )
       },
       width: 90,
     },
@@ -107,9 +124,9 @@ const UserList = () => {
         disableColumnMenu
         disableRowSelectionOnClick
       />
-      {selectedUser && (
-        <UserEdit open={open} onClose={handleClose} user={selectedUser} />
-      )}
+       {selectedUser && (
+      <UserEdit open={open} onClose={handleClose}  user={selectedUser} />)}
+      
     </div>
   );
 };
