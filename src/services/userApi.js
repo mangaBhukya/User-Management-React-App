@@ -14,9 +14,9 @@ export const loginUser = async(email, password)=>{
 };
 
 
-export const getUsers = async()=>{
+export const getUsers = async(page =1, pageSize=6)=>{
     try {
-        const response = await axios.get('https://reqres.in/api/users?page=1');
+        const response = await axios.get(`https://reqres.in/api/users?page=${page}&per_page=${pageSize}`);
         return response.data;
         
     } catch (error) {
