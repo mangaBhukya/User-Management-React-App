@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { loginUser } from "../services/userApi";
 import { TextField, Button, Container, Typography, Paper } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
-  const [email, setEmail] = useState("");//eve.holt@reqres.in
-  const [password, setPassword] = useState("");//cityslicka
+  const [email, setEmail] = useState("eve.holt@reqres.in");
+  const [password, setPassword] = useState("cityslicka");
   const [error, setError] = useState("");
   const [onSuccess, setOnSuccess] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
 
   const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -53,6 +57,7 @@ const LoginForm = () => {
           />
           <TextField
             label="Password"
+            type="password"
             variant="outlined"
             value={password}
             onChange={(e) => {
