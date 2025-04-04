@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("eve.holt@reqres.in");
-  const [password, setPassword] = useState("cityslicka");
+  const [password, setPassword] = useState("...........");
   const [error, setError] = useState("");
   const [onSuccess, setOnSuccess] = useState("");
   const navigate = useNavigate();
@@ -22,12 +22,13 @@ const LoginForm = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
+    const passwordValue = process.env.REACT_APP_LOGIN_PASSWORD;
     try {
       if (!isValidEmail) {
         setError("Please enter a valid email address");
         return;
       }
-      const data = await loginUser(email, password);
+      const data = await loginUser(email, passwordValue);
       localStorage.setItem("token", data.token);
       setOnSuccess("Login successful!");
       navigate("/users");
