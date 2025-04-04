@@ -85,13 +85,17 @@ const UserList = () => {
     setFilteredUsers(filtered);
   };
 
-  const handleUserUpdate = async(updatedUser) => {
+  const handleUserUpdate = async (updatedUser) => {
     setFilteredUsers((prevUsers) =>
       prevUsers.map((user) =>
-        user.id === updatedUser.id
-          ? { ...user, ...updatedUser }
-          : user
-      ))
+        user.id === updatedUser.id ? { ...user, ...updatedUser } : user
+      )
+    );
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
   };
 
   const columns = [
@@ -164,10 +168,15 @@ const UserList = () => {
       <Button
         variant="outlined"
         color="secondary"
-        onClick={goBack}
+        onClick={handleLogout}
         sx={{ mb: 2 }}
+        style={{
+          position: "absolute",
+          right: "0",
+          top: "20px",
+        }}
       >
-        Back
+        logOut
       </Button>
       <Typography variant="h4" sx={{ mb: 2 }}>
         User Management
