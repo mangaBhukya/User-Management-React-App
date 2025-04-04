@@ -23,6 +23,7 @@ A React-based User Management application using **Material-UI** and **Reqres API
 
 - Error Handling: Handles API errors and invalid inputs.
 - implement ProtectedRoute for user list page
+- Environment-based credentials
 
 
 ## Installation & Setup
